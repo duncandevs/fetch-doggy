@@ -1,12 +1,9 @@
-import axios from "axios";
+"use client";
+import { useDogBreeds } from "@/domains/search/hooks";
 
-export default async function Search () {
-    try {
-        const request = await axios.get("https://frontend-take-home-service.fetch.com/dogs/breeds")
-        console.log(request.status, request.statusText)   
-    } catch (error) {
-        console.log(error)
-    }
+export default function SearchPage () {
+    const { dogBreeds } = useDogBreeds();
+    if(dogBreeds) console.log('dogBreeds: ', dogBreeds)
     return <div>
         <h1>Welcome to the Search Page</h1>
     </div>
