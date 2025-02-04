@@ -1,5 +1,6 @@
 "use client";
-import { useDogSearch, useGetDogById } from "@/domains/search/hooks";
+import React from "react";
+import { useDogSearch } from "@/domains/search/hooks";
 import { Dog } from "@/domains/search/types";
 
 const DogDetails = ({ dog }:{dog: Dog}) => {
@@ -16,15 +17,20 @@ const DogDetails = ({ dog }:{dog: Dog}) => {
 
 
 export default function SearchPage () {
-    const { dogs } = useDogSearch({
-        sort: "breed:asc",
-        from: 25,
-    })
-
+    const [page, setPage] = React.useState(0);
+    const { dogs } = useDogSearch({}, page);
+    const incrementPage = () => {
+        setPage(page + 1)
+    }
 
     return <div>
         <h1>Welcome to the Search Page</h1>
-        <div>
+        <p>Page ${page}</p>
+        <button onClick={() => incrementPage()}>
+            next page
+        </button>
+        <div className="flex flex-col space-y-8">
+            <h1>{dogs?.length}</h1>
             {dogs?.map((dog: Dog, idx: number)=> <DogDetails dog={dog} key={`Dog-${idx}`}/>)}
         </div>
     </div>

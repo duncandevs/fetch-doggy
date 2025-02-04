@@ -1,13 +1,14 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient, useInfiniteQuery } from '@tanstack/react-query';
 import { DoggyApi } from './api';
 import { FetchDogIdsPayload, Dog } from './types';
 import { useEffect } from 'react';
+import { DEFAULT_SEARCH_SIZE } from "@/domains/search/constants";
 
 export const DoggyCache = {
     dogBreeds: ['dogBreeds'],
-    dogs: ["dogs"],
+    getDogs: (page:number) => ["dogs", page],
     getDog: (id: string) => ['dog', id],
-    getDogIds: (filters: FetchDogIdsPayload) => ["dogIds", filters],
+    getDogIds: (filters: FetchDogIdsPayload, page: number) => ["dogIds", filters, page],
 }
 
 
@@ -22,23 +23,35 @@ export const useGetDogBreeds = () => {
     }
 };
 
-export const useGetDogIds = (payload: FetchDogIdsPayload) => {
-    const { data, ...props } = useQuery({
-        queryKey: DoggyCache.getDogIds(payload || {}),
-        queryFn: () => DoggyApi.fetchDogIds(payload),
-        enabled: !!payload
+
+export const useGetDogIds = (payload: FetchDogIdsPayload, page: number = 0) => {
+    const fetchDogIds = async () => {
+        return DoggyApi.fetchDogIds({ 
+            ...payload, 
+            from: page * DEFAULT_SEARCH_SIZE, 
+            size: DEFAULT_SEARCH_SIZE 
+        });
+    };
+
+    const { data, ...queryProps } = useQuery({
+        queryKey: DoggyCache.getDogIds(payload, page),
+        queryFn: fetchDogIds,
+        enabled: !!payload,
+        staleTime: 1000 * 60 * 5,
     });
 
     return {
-        dogIds: data?.resultIds,
-        ...props
-    }
+        dogIds: data?.resultIds || [],
+        total: data?.total || 0, // Assume API returns total number of results
+        ...queryProps,
+    };
 };
 
-export const useGetDogs = (ids: string[]) => {
+
+export const useGetDogs = (ids: string[], page:number = 0) => {
     const queryClient = useQueryClient();
     const { data: dogs, ...props } = useQuery({
-        queryKey: DoggyCache.dogs,
+        queryKey: DoggyCache.getDogs(page),
         queryFn: () => DoggyApi.fetchDogs({ ids }),
         enabled: ids?.length > 0,
     });
@@ -53,12 +66,12 @@ export const useGetDogs = (ids: string[]) => {
     }
 };
 
-export const useDogSearch = (payload: FetchDogIdsPayload) => {
-    const { dogIds } = useGetDogIds(payload);
-    const { dogs } = useGetDogs(dogIds);
+export const useDogSearch = (payload: FetchDogIdsPayload, page: number) => {
+    const { dogIds } = useGetDogIds(payload, page);
+    const { dogs } = useGetDogs(dogIds, page);
     return {
-        dogs
-    }
+        dogs,
+    };
 };
 
 export const useGetDogById = (id: string) => {
