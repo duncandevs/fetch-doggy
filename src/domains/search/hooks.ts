@@ -10,7 +10,8 @@ export const DoggyCache = {
     getDogs: (page:number) => ["dogs", page],
     getDog: (id: string) => ['dog', id],
     getDogIds: (filters: FetchDogIdsPayload, page: number) => ["dogIds", filters, filters.sort, page],
-    dogFilters: ["dogFilters"]
+    dogFilters: ["dogFilters"],
+    favorites: ["favorites"],
 };
 
 export const useDogFilters = () => {
@@ -192,4 +193,27 @@ export const useSearchPagination = (initialPage: number = 0) => {
       nextPage,
       previousPage,
     };
+};
+
+export const useFavorites = () => {
+  const queryClient = useQueryClient();
+  const { data: favorites } = useQuery({
+    queryKey: DoggyCache.favorites,
+    queryFn: ():Record<string, boolean> => ({}),
+    initialData: {},
+  });
+
+  const updateFavorite = (id:string, value: boolean) => {
+    queryClient.setQueryData(DoggyCache.favorites, (prev:Record<string, boolean> = {}) => ({
+      ...prev,
+      [id]: value,
+    }));
   };
+
+  return {
+    favorites: favorites || {},
+    addFavorite: (id: string) => updateFavorite(id, true),
+    removeFavorite: (id: string) => updateFavorite(id, false),
+    toggleFavorite: (id: string) => updateFavorite(id, !favorites?.[id]),
+  };
+};

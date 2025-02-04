@@ -1,16 +1,30 @@
 import { Dog } from "@/domains/search/types"
 import { Heart, MapPin } from "lucide-react"
 import Image from "next/image"
-import React from "react"
+import React, { useEffect } from "react"
 import { Button } from "../ui/button"
+import { useFavorites } from "@/domains/search/hooks"
+import { cn } from "@/lib/utils"
 
 interface DogCardProps {
     dog: Dog
 }
 
 export const DogCard: React.FC<DogCardProps> = ({ dog }) => {
+    const { favorites, toggleFavorite } = useFavorites();
+    useEffect(()=>{
+        console.log('Favorites: ', favorites)
+    }, [favorites]);
+
+    const handleFavorite = () => toggleFavorite(dog?.id);
+    const isFavorited = favorites[dog?.id]
+
     return <div className="group w-[280px] h-[392px] w-60 rounded-md border-solid border"> 
-        <Button className="absolute m-2 hidden group-hover:flex" size="icon">
+        <Button className={cn(
+                "absolute m-2",
+                "hidden group-hover:flex",
+                isFavorited && "flex bg-pink-400"
+            )} size="icon" onClick={handleFavorite}>
             <Heart  />
         </Button>
         <Image 
