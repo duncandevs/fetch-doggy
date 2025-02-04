@@ -1,12 +1,12 @@
 "use client";
 import React from "react";
-import { useDogSearch, useSearchPageNumber } from "@/domains/search/hooks";
+import { useDogFilters, useDogSearch, useSearchPageNumber } from "@/domains/search/hooks";
 import { Dog } from "@/domains/search/types";
 import "./styles.css";
-import { ListFilter, Search } from "lucide-react";
+import { ListFilter } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { SearchCommand } from "@/components/common/search-command";
+import { DogFilters } from "@/components/common/dog-filters";
 
 
 const DogDetails = ({ dog }:{dog: Dog}) => {
@@ -30,6 +30,7 @@ export default function SearchPage () {
     } = useSearchPageNumber(0);
 
     const { dogs } = useDogSearch({}, page);
+    const { filters } = useDogFilters();
 
     return <div className="flex h-full">
         {/* <h1>Welcome to the Search Page</h1>
@@ -52,7 +53,7 @@ export default function SearchPage () {
             </div>
         </div> */}
         <div>
-            <div className="bg-gray-100 fixed w-full p-8">
+            <div className="bg-gray-100 w-full p-8 space-y-8">
                 <div className="w-full h-full bg-green-200 flex items-center gap-8">
                     <Button variant="outline">
                         <ListFilter />
@@ -64,8 +65,9 @@ export default function SearchPage () {
                     </div>
                     <div className="w-64 h-16 bg-gray-400"></div>
                 </div>
+                <DogFilters />
             </div>
-            <div className="flex pt-32 w-screen">
+            <div className="flex w-screen">
                 <div className="min-h-full h-screen w-[300px] bg-red-100 p-8">
                     <p>Testing</p>
                 </div>

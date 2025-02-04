@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Input } from "../ui/input";
-import { useGetDogBreeds } from "@/domains/search/hooks";
+import { useDogFilters, useGetDogBreeds } from "@/domains/search/hooks";
 
 export const SearchCommand = () => {
   const { dogBreeds } = useGetDogBreeds();
   const [isCommandBoxShown, setIsCommandBoxShown] = useState(false);
   const [filteredList, setFilteredList] = useState(dogBreeds);
   const [searchInput, setSearchInput] = useState("");
+  const { addDogBreedFilter } = useDogFilters();
+  
+  // Ref to detect clicks outside
+  const searchRef = useRef<HTMLDivElement>(null);
 
   const onInputClick = () => setIsCommandBoxShown(true);
 
@@ -22,8 +26,19 @@ export const SearchCommand = () => {
     }
   }, [searchInput, dogBreeds]);
 
+  // Close when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setIsCommandBoxShown(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
-    <div className="w-full relative">
+    <div className="w-full relative" ref={searchRef}>
       <div className="min-h-16 h-full w-[1024px] bg-purple-100 flex items-center">
         <Input
           onClick={onInputClick}
@@ -42,8 +57,8 @@ export const SearchCommand = () => {
           </div>
           <hr />
           <ul className="p-4 flex flex-col gap-4">
-            {filteredList.map((breed: string) => (
-              <li key={breed} className="hover:bg-gray-200 p-2 rounded-md">
+            {filteredList?.map((breed: string) => (
+              <li key={breed} className="hover:bg-gray-200 p-2 rounded-md" onClick={() => addDogBreedFilter(breed)}>
                 {breed}
               </li>
             ))}
