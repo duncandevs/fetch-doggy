@@ -28,7 +28,6 @@ export const SideMenu = () => {
     const [maxAge, setMaxAge] = useState<string>();
     
     const handleAgeUpdate = () => {
-        console.log('minAge: ', minAge, 'maxAge: ', maxAge)
         if(minAge) setAgeMinFilter(Number(minAge))
         if(maxAge) setAgeMaxFilter(Number(maxAge))
     };
@@ -43,7 +42,7 @@ export const SideMenu = () => {
                     </div>
                     <div>
                         <p>Max</p>
-                        <Input type="number" min={100} onChange={(e)=>setMaxAge(e.target.value)}/>
+                        <Input type="number" min={0} onChange={(e)=>setMaxAge(e.target.value)}/>
                     </div>
                 </div>
                 <Button className="w-full mt-4" onClick={handleAgeUpdate}>Apply</Button>
