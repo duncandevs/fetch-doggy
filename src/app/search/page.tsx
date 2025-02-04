@@ -7,6 +7,7 @@ import { ListFilter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SearchCommand } from "@/components/common/search-command";
 import { DogFilters } from "@/components/common/dog-filters";
+import { DogCard } from "@/components/common/dog-card";
 
 
 const DogDetails = ({ dog }:{dog: Dog}) => {
@@ -28,10 +29,10 @@ export default function SearchPage () {
         nextPage,
         previousPage
     } = useSearchPageNumber(0);
-
-    const { dogs } = useDogSearch({}, page);
-    const { filters } = useDogFilters();
-
+    const {filters } = useDogFilters();
+    console.log('FILTERS: ', filters)
+    const { dogs } = useDogSearch(filters, page);
+    console.log("DOGS: ", dogs)
     return <div className="flex h-full">
         {/* <h1>Welcome to the Search Page</h1>
         <p>Page ${page}</p>
@@ -73,7 +74,7 @@ export default function SearchPage () {
                 </div>
                 <div className="w-[calc(100vw-300px)] m-auto">
                     <div className="grid gap-4 p-4 auto-grid overflow-y-auto">
-                        {Array.from({ length: 40 }).map((i, idx)=><div className="w-[280px] h-[392px] w-60 bg-green-100" key={idx}></div>)}
+                        {dogs?.map((dog: Dog)=><DogCard dog={dog} key={dog.id}/>)}
                     </div>
                 </div>
             </div>
