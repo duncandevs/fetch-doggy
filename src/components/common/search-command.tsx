@@ -8,8 +8,6 @@ export const SearchCommand = () => {
   const [filteredList, setFilteredList] = useState(dogBreeds);
   const [searchInput, setSearchInput] = useState("");
   const { addDogBreedFilter } = useDogFilters();
-  
-  // Ref to detect clicks outside
   const searchRef = useRef<HTMLDivElement>(null);
 
   const onInputClick = () => setIsCommandBoxShown(true);
@@ -39,7 +37,7 @@ export const SearchCommand = () => {
 
   return (
     <div className="w-full relative" ref={searchRef}>
-      <div className="min-h-16 h-full w-[1024px] bg-purple-100 flex items-center">
+      <div className="min-h-16 h-full bg-purple-100 flex items-center">
         <Input
           onClick={onInputClick}
           onChange={(e) => setSearchInput(e.target.value)}

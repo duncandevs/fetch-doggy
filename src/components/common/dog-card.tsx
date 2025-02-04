@@ -11,7 +11,6 @@ export const DogCard: React.FC<DogCardProps> = ({ dog }) => {
         <Image 
             src={dog.img} 
             alt={dog.name} 
-            objectFit="cover" 
             placeholder="blur" 
             blurDataURL={dog.img} 
             width={280} 

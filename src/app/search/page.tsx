@@ -29,38 +29,26 @@ export default function SearchPage () {
         nextPage,
         previousPage
     } = useSearchPageNumber(0);
-    const {filters } = useDogFilters();
-    console.log('FILTERS: ', filters)
-    const { dogs } = useDogSearch(filters, page);
-    console.log("DOGS: ", dogs)
+    const { filters } = useDogFilters();
+    const { dogs } = useDogSearch(page);
+
     return <div className="flex h-full">
-        {/* <h1>Welcome to the Search Page</h1>
-        <p>Page ${page}</p>
-        <div className="flex gap-4">
-            <button onClick={() => previousPage()}>
-                prev page
-            </button>
-            <button onClick={() => nextPage()}>
-                next page
-            </button>
-        </div>
-        <div className="flex flex-col space-y-8">
-            <h1>{dogs?.length}</h1>
-            {dogs?.map((dog: Dog, idx: number)=> <DogDetails dog={dog} key={`Dog-${idx}`}/>)}
-        </div> */}
-        {/* <div>
-            <div className="min-h-full h-screen w-[300px] bg-red-100">
-                <p>Testing</p>
-            </div>
-        </div> */}
         <div>
+            <div className="flex gap-4">
+                <button onClick={() => previousPage()}>
+                    prev page
+                </button>
+                <button onClick={() => nextPage()}>
+                    next page
+                </button>
+            </div>
             <div className="bg-gray-100 w-full p-8 space-y-8">
                 <div className="w-full h-full bg-green-200 flex items-center gap-8">
                     <Button variant="outline">
                         <ListFilter />
-                        <p>15</p>
+                        <p>{filters?.breeds?.length}</p>
                     </Button>
-                    <p className="text-gray-600 w-32">15 results</p>
+                    <p className="text-gray-600 w-32">25 results</p>
                     <div className="w-full">
                         <SearchCommand />
                     </div>
@@ -69,7 +57,7 @@ export default function SearchPage () {
                 <DogFilters />
             </div>
             <div className="flex w-screen">
-                <div className="min-h-full h-screen w-[300px] bg-red-100 p-8">
+                <div className="min-h-full w-[300px] bg-red-100 p-8">
                     <p>Testing</p>
                 </div>
                 <div className="w-[calc(100vw-300px)] m-auto">
