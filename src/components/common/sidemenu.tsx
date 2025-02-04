@@ -3,6 +3,7 @@ import { useState } from "react"
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useDogFilters } from "@/domains/search/hooks";
+import { Pill } from "./pill";
 
 interface CollapsableProps {
     title: string;
@@ -20,16 +21,21 @@ const Collapsable: React.FC<CollapsableProps> = ({ title, children }) => {
                 { children }
             </div>}
         </div>
-}
+};
 
 export const SideMenu = () => {
-    const {setAgeMaxFilter, setAgeMinFilter} = useDogFilters();
-    const [minAge, setMinAge] = useState<string>();
-    const [maxAge, setMaxAge] = useState<string>();
+    const {setAgeMaxFilter, setAgeMinFilter, filters, addZipcodeFilter, removeZipcodeFilter} = useDogFilters();
+    const [minAge, setMinAge] = useState<string | number | undefined>(filters?.ageMin || 0);
+    const [maxAge, setMaxAge] = useState<string | number | undefined>(filters?.ageMax || undefined);
+    const [zipCode, setZipCode] = useState<string>();
     
     const handleAgeUpdate = () => {
-        if(minAge) setAgeMinFilter(Number(minAge))
-        if(maxAge) setAgeMaxFilter(Number(maxAge))
+        if(minAge) setAgeMinFilter(Number(minAge));
+        if(maxAge) setAgeMaxFilter(Number(maxAge));
+    };
+
+    const handleZipCodeUpdate = () => {
+        if(zipCode) addZipcodeFilter(zipCode);
     };
 
     return <div className="w-full space-y-8">
@@ -38,11 +44,11 @@ export const SideMenu = () => {
                 <div className="flex space-x-4">
                     <div>
                         <p>Min</p>
-                        <Input type="number" min={0} onChange={(e)=>setMinAge(e.target.value)}/>
+                        <Input type="number" min={0} onChange={(e)=>setMinAge(e.target.value)} value={minAge}/>
                     </div>
                     <div>
                         <p>Max</p>
-                        <Input type="number" min={0} onChange={(e)=>setMaxAge(e.target.value)}/>
+                        <Input type="number" min={0} onChange={(e)=>setMaxAge(e.target.value)} value={maxAge}/>
                     </div>
                 </div>
                 <Button className="w-full mt-4" onClick={handleAgeUpdate}>Apply</Button>
@@ -51,9 +57,18 @@ export const SideMenu = () => {
         <Collapsable title="Zip Code">
             <div>
                 <div className="flex space-x-4">
-                    <Input min={0} className="w-full"/>
+                    <Input min={0} className="w-full" onChange={(e) => setZipCode(e.target.value)} />
                 </div>
-                <Button className="w-full mt-4">Apply</Button>
+                <div className="flex flex-wrap gap-[4px] mt-4">
+                    {filters?.zipCodes?.map((value) => 
+                        <Pill 
+                            key={value} 
+                            value={value}
+                            className="w-fit text-xs" 
+                            deleteHandler={()=>removeZipcodeFilter(value)}
+                        />)}
+                </div>
+                <Button className="w-full mt-4" onClick={handleZipCodeUpdate}>Apply</Button>
             </div>
         </Collapsable>
     </div>

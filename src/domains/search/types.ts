@@ -4,7 +4,7 @@ type SortType = "asc" | "desc";
 export type Sort = `${SortField}:${SortType}`;
 export type FetchDogIdsPayload = {
     breeds?: string[];
-    zipCodes?: number[];
+    zipCodes?: string[];
     ageMin?: number;
     ageMax?: number;
     size?: number;

@@ -20,6 +20,8 @@ export const DogCard: React.FC<DogCardProps> = ({ dog }) => {
         <div className="p-4">
             <p className="text-lg font-semibold">{dog.name}</p>
             <p className="text-lg font-semibold">{dog.age}</p>
+            <p className="text-sm">{dog.zip_code}</p>
+            <p>{dog.breed}</p>
         </div>
     </div>
 }

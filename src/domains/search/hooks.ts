@@ -48,8 +48,21 @@ export const useDogFilters = () => {
         breeds: prev.breeds ? prev.breeds.filter((b) => b !== breed) : []
       }));
     };
-  
-  
+
+    const addZipcodeFilter = (zipCode: string) => {
+        queryClient.setQueryData(DoggyCache.dogFilters, (prev: FetchDogIdsPayload = {}) => ({
+          ...prev,
+          zipCodes: prev.zipCodes ? [...new Set([...prev.zipCodes, zipCode])] : [zipCode]
+        }));
+    };
+
+    const removeZipcodeFilter = (zipCode: string) => {
+        queryClient.setQueryData(DoggyCache.dogFilters, (prev: FetchDogIdsPayload = {}) => ({
+          ...prev,
+          zipCodes: prev.zipCodes ? prev.zipCodes.filter((b) => b !== zipCode) : []
+        }));
+    };
+    
     return {
       filters: filters || {},
       setBreedsFilter,
@@ -60,7 +73,9 @@ export const useDogFilters = () => {
       setFromFilter,
       setSortFilter,
       addDogBreedFilter,
-      removeDogBreedFilter
+      removeDogBreedFilter,
+      addZipcodeFilter,
+      removeZipcodeFilter,
     };
 };
 
