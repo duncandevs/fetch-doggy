@@ -12,38 +12,16 @@ import { SideMenu } from "@/components/common/sidemenu";
 import { SearchPagination } from "@/components/common/search-pagination";
 
 
-const DogDetails = ({ dog }:{dog: Dog}) => {
-    if (!dog) return <p>Loading...</p>;
-
-    return (
-        <div>
-            <h2>{dog.name}</h2>
-            <p>Breed: {dog.breed}</p>
-            <p>Age: {dog.age}</p>
-        </div>
-    );
-};
-
-
 export default function SearchPage () {
     const {        
         page,
-        nextPage,
-        previousPage
     } = useSearchPagination(0);
     const { filters } = useDogFilters();
+    console.log("filters: ", filters)
     const { dogs } = useDogSearch(page);
 
     return <div className="flex h-full">
         <div>
-            <div className="flex gap-4">
-                <button onClick={() => previousPage()}>
-                    prev page
-                </button>
-                <button onClick={() => nextPage()}>
-                    next page
-                </button>
-            </div>
             <div className="bg-gray-100 w-full p-8 space-y-8">
                 <div className="w-full h-full bg-green-200 flex items-center gap-8">
                     <Button variant="outline">

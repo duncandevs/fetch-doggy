@@ -17,7 +17,8 @@ export const useDogFilters = () => {
     const queryClient = useQueryClient();
     const { data: filters } = useQuery<FetchDogIdsPayload>({
       queryKey: DoggyCache.dogFilters,
-      queryFn: () => ({}) // Default empty filters,
+      queryFn: () => ({}), // Default empty filters,
+      staleTime: Infinity,
     });
     const updateFilter = (key: keyof FetchDogIdsPayload, value: any) => {
       queryClient.setQueryData(DoggyCache.dogFilters, (prev: FetchDogIdsPayload = {}) => ({
@@ -107,7 +108,6 @@ export const useGetDogs = (ids: string[], page:number = 0) => {
     });
 
     useEffect(()=>{
-        console.log('UPDATED DOGS: ', dogs)
         dogs?.forEach((dog: Dog) => queryClient.setQueryData(DoggyCache.getDog(dog.id), dog));
     }, [dogs]);
 
