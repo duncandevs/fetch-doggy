@@ -1,7 +1,7 @@
-import { useQuery, useQueryClient, useInfiniteQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { DoggyApi } from './api';
 import { FetchDogIdsPayload, Dog } from './types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { DEFAULT_SEARCH_SIZE } from "@/domains/search/constants";
 
 export const DoggyCache = {
@@ -89,4 +89,20 @@ export const useGetDogById = (id: string) => {
         dog,
         ...props
     }
-}   
+};
+
+export const useSearchPageNumber = (initialPage: number = 0) => {
+    const [page, setPage] = useState(initialPage);
+    const previousPage = () => {
+        if(page > 0 ) setPage(page - 1)
+    };
+    const nextPage = () => {
+        setPage(page + 1)
+    };
+
+    return {
+        page,
+        nextPage,
+        previousPage
+    }
+};
