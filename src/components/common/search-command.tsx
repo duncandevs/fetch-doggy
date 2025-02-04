@@ -51,7 +51,7 @@ export const SearchCommand = () => {
           style={{ zIndex: 2 }}
         >
           <div className="p-2">
-            <p className="text-sm">Breeds</p>
+            <p className="text-sm text-gray-500">Breeds</p>
           </div>
           <hr />
           <ul className="p-4 flex flex-col gap-4">

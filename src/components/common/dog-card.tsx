@@ -1,14 +1,18 @@
 import { Dog } from "@/domains/search/types"
-import { MapPin } from "lucide-react"
+import { Heart, MapPin } from "lucide-react"
 import Image from "next/image"
 import React from "react"
+import { Button } from "../ui/button"
 
 interface DogCardProps {
     dog: Dog
 }
 
 export const DogCard: React.FC<DogCardProps> = ({ dog }) => {
-    return <div className="w-[280px] h-[392px] w-60 rounded-md border-solid border"> 
+    return <div className="group w-[280px] h-[392px] w-60 rounded-md border-solid border"> 
+        <Button className="absolute m-2 hidden group-hover:flex" size="icon">
+            <Heart  />
+        </Button>
         <Image 
             src={dog.img} 
             alt={dog.name} 
