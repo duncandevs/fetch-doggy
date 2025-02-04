@@ -1,7 +1,8 @@
+import { useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useSearchParams, useRouter } from "next/navigation";
 import { DoggyApi } from './api';
 import { FetchDogIdsPayload, Dog, Sort } from './types';
-import { useEffect, useState } from 'react';
 import { DEFAULT_SEARCH_SIZE } from "@/domains/search/constants";
 
 export const DoggyCache = {
@@ -142,18 +143,33 @@ export const useGetDogById = (id: string) => {
     }
 };
 
-export const useSearchPageNumber = (initialPage: number = 0) => {
-    const [page, setPage] = useState(initialPage);
-    const previousPage = () => {
-        if(page > 0 ) setPage(page - 1)
+export const useSearchPagination = (initialPage: number = 0) => {
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const pageFromUrl = Number(searchParams.get("page")) || initialPage;
+    const [page, setPage] = useState(pageFromUrl);
+  
+    const updatePage = (newPage: number) => {
+      const params = new URLSearchParams(searchParams);
+      params.set("page", String(newPage));
+      router.push(`?${params.toString()}`, { scroll: false }); // Keep scroll position
     };
+  
+    const previousPage = () => {
+      if (page > 0) updatePage(page - 1);
+    };
+  
     const nextPage = () => {
-        setPage(page + 1)
+      updatePage(page + 1);
     };
 
+    useEffect(() => {
+        setPage(pageFromUrl);
+    }, [pageFromUrl]);
+  
     return {
-        page,
-        nextPage,
-        previousPage
-    }
-};
+      page,
+      nextPage,
+      previousPage,
+    };
+  };

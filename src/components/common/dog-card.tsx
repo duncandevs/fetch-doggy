@@ -7,7 +7,7 @@ interface DogCardProps {
 }
 
 export const DogCard: React.FC<DogCardProps> = ({ dog }) => {
-    return <div className="w-[280px] h-[392px] w-60 bg-green-100 rounded-md"> 
+    return <div className="w-[280px] h-[392px] w-60 rounded-md border-solid border"> 
         <Image 
             src={dog.img} 
             alt={dog.name} 
@@ -17,6 +17,8 @@ export const DogCard: React.FC<DogCardProps> = ({ dog }) => {
             height={300} 
             className="w-fill h-[300px] rounded-md"
         />
-        <p>{dog.name}</p>
+        <div className="p-4">
+            <p className="text-lg font-semibold">{dog.name}</p>
+        </div>
     </div>
 }

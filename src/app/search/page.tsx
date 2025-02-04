@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useDogFilters, useDogSearch, useSearchPageNumber } from "@/domains/search/hooks";
+import { useDogFilters, useDogSearch, useSearchPagination } from "@/domains/search/hooks";
 import { Dog } from "@/domains/search/types";
 import "./styles.css";
 import { ListFilter } from "lucide-react";
@@ -8,7 +8,8 @@ import { Button } from "@/components/ui/button";
 import { SearchCommand } from "@/components/common/search-command";
 import { DogFilters } from "@/components/common/dog-filters";
 import { DogCard } from "@/components/common/dog-card";
-import { SideMenu } from "@/components/common/side-menu";
+import { SideMenu } from "@/components/common/sidemenu";
+import { SearchPagination } from "@/components/common/search-pagination";
 
 
 const DogDetails = ({ dog }:{dog: Dog}) => {
@@ -29,7 +30,7 @@ export default function SearchPage () {
         page,
         nextPage,
         previousPage
-    } = useSearchPageNumber(0);
+    } = useSearchPagination(0);
     const { filters } = useDogFilters();
     const { dogs } = useDogSearch(page);
 
@@ -57,14 +58,20 @@ export default function SearchPage () {
                 </div>
                 <DogFilters />
             </div>
+            <hr />
             <div className="flex w-screen">
-                <div className="min-h-full w-[300px] bg-red-100 p-8">
+                <div className="min-h-full w-[300px] p-8">
                     <SideMenu />
                 </div>
                 <div className="w-[calc(100vw-300px)] m-auto">
                     <div className="grid gap-4 p-4 auto-grid overflow-y-auto">
                         {dogs?.map((dog: Dog)=><DogCard dog={dog} key={dog.id}/>)}
                     </div>
+                </div>
+            </div>
+            <div className="pb-8">
+                <div className="ml-auto mr-32  w-64">
+                    <SearchPagination />
                 </div>
             </div>
         </div>
