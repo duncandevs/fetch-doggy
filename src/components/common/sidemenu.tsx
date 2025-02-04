@@ -2,6 +2,7 @@ import { ChevronDown, ChevronUp } from "lucide-react"
 import { useState } from "react"
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { useDogFilters } from "@/domains/search/hooks";
 
 interface CollapsableProps {
     title: string;
@@ -22,20 +23,30 @@ const Collapsable: React.FC<CollapsableProps> = ({ title, children }) => {
 }
 
 export const SideMenu = () => {
+    const {setAgeMaxFilter, setAgeMinFilter} = useDogFilters();
+    const [minAge, setMinAge] = useState<string>();
+    const [maxAge, setMaxAge] = useState<string>();
+    
+    const handleAgeUpdate = () => {
+        console.log('minAge: ', minAge, 'maxAge: ', maxAge)
+        if(minAge) setAgeMinFilter(Number(minAge))
+        if(maxAge) setAgeMaxFilter(Number(maxAge))
+    };
+
     return <div className="w-full space-y-8">
         <Collapsable title="Age">
             <div>
                 <div className="flex space-x-4">
                     <div>
                         <p>Min</p>
-                        <Input type="number" min={0}/>
+                        <Input type="number" min={0} onChange={(e)=>setMinAge(e.target.value)}/>
                     </div>
                     <div>
                         <p>Max</p>
-                        <Input  type="number" max={100}/>
+                        <Input type="number" min={100} onChange={(e)=>setMaxAge(e.target.value)}/>
                     </div>
                 </div>
-                <Button className="w-full mt-4">Apply</Button>
+                <Button className="w-full mt-4" onClick={handleAgeUpdate}>Apply</Button>
             </div>
         </Collapsable>
         <Collapsable title="Zip Code">
