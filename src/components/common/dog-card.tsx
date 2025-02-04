@@ -12,12 +12,8 @@ interface DogCardProps {
 
 export const DogCard: React.FC<DogCardProps> = ({ dog }) => {
     const { favorites, toggleFavorite } = useFavorites();
-    useEffect(()=>{
-        console.log('Favorites: ', favorites)
-    }, [favorites]);
-
     const handleFavorite = () => toggleFavorite(dog?.id);
-    const isFavorited = favorites[dog?.id]
+    const isFavorited = favorites[dog?.id];
 
     return <div className="group w-[280px] h-[392px] w-60 rounded-md border-solid border"> 
         <Button className={cn(
