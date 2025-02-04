@@ -37,7 +37,6 @@ export const useGetDogIds = (payload: FetchDogIdsPayload, page: number = 0) => {
         queryKey: DoggyCache.getDogIds(payload, page),
         queryFn: fetchDogIds,
         enabled: !!payload,
-        staleTime: 1000 * 60 * 5,
     });
 
     return {

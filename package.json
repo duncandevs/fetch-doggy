@@ -11,6 +11,7 @@
   "dependencies": {
     "@tanstack/react-query": "^5.66.0",
     "axios": "^1.7.9",
+    "boring-avatars": "^1.11.2",
     "cookie": "^1.0.2",
     "next": "15.1.6",
     "next-auth": "^4.24.11",
