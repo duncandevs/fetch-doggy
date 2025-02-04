@@ -3,6 +3,11 @@ import React from "react";
 import { useDogSearch, useSearchPageNumber } from "@/domains/search/hooks";
 import { Dog } from "@/domains/search/types";
 import "./styles.css";
+import { ListFilter, Search } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { SearchCommand } from "@/components/common/search-command";
+
 
 const DogDetails = ({ dog }:{dog: Dog}) => {
     if (!dog) return <p>Loading...</p>;
@@ -42,19 +47,29 @@ export default function SearchPage () {
             {dogs?.map((dog: Dog, idx: number)=> <DogDetails dog={dog} key={`Dog-${idx}`}/>)}
         </div> */}
         {/* <div>
-            <div className="min-h-full h-screen w-[250px] bg-red-100">
+            <div className="min-h-full h-screen w-[300px] bg-red-100">
                 <p>Testing</p>
             </div>
         </div> */}
         <div>
-            <div className="h-32 bg-gray-100 fixed w-full">
-                <p>Search Bar</p>
+            <div className="bg-gray-100 fixed w-full p-8">
+                <div className="w-full h-full bg-green-200 flex items-center gap-8">
+                    <Button variant="outline">
+                        <ListFilter />
+                        <p>15</p>
+                    </Button>
+                    <p className="text-gray-600 w-32">15 results</p>
+                    <div className="w-full">
+                        <SearchCommand />
+                    </div>
+                    <div className="w-64 h-16 bg-gray-400"></div>
+                </div>
             </div>
-            <div className="flex pt-32">
-                <div className="min-h-full h-screen w-[250px] bg-red-100 fixed">
+            <div className="flex pt-32 w-screen">
+                <div className="min-h-full h-screen w-[300px] bg-red-100 p-8">
                     <p>Testing</p>
                 </div>
-                <div className="w-[calc(100vw-250px)] h-[calc(100vh-200px)] ml-[250px]">
+                <div className="w-[calc(100vw-300px)] m-auto">
                     <div className="grid gap-4 p-4 auto-grid overflow-y-auto">
                         {Array.from({ length: 40 }).map((i, idx)=><div className="w-[280px] h-[392px] w-60 bg-green-100" key={idx}></div>)}
                     </div>
