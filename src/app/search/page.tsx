@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { SearchCommand } from "@/components/common/search-command";
 import { DogFilters } from "@/components/common/dog-filters";
 import { DogCard } from "@/components/common/dog-card";
+import { SideMenu } from "@/components/common/side-menu";
 
 
 const DogDetails = ({ dog }:{dog: Dog}) => {
@@ -58,7 +59,7 @@ export default function SearchPage () {
             </div>
             <div className="flex w-screen">
                 <div className="min-h-full w-[300px] bg-red-100 p-8">
-                    <p>Testing</p>
+                    <SideMenu />
                 </div>
                 <div className="w-[calc(100vw-300px)] m-auto">
                     <div className="grid gap-4 p-4 auto-grid overflow-y-auto">
