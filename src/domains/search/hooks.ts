@@ -9,7 +9,7 @@ export const DoggyCache = {
     dogBreeds: ['dogBreeds'],
     getDogs: (page:number) => ["dogs", page],
     getDog: (id: string) => ['dog', id],
-    getDogIds: (filters: FetchDogIdsPayload, page: number) => ["dogIds", filters, page],
+    getDogIds: (filters: FetchDogIdsPayload, page: number) => ["dogIds", filters, filters.sort, page],
     dogFilters: ["dogFilters"]
 };
 
@@ -62,6 +62,10 @@ export const useDogFilters = () => {
           zipCodes: prev.zipCodes ? prev.zipCodes.filter((b) => b !== zipCode) : []
         }));
     };
+
+    useEffect(()=>{
+      console.log(filters)
+    }, [filters])
     
     return {
       filters: filters || {},
