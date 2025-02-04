@@ -37,7 +37,7 @@ export const SearchCommand = () => {
 
   return (
     <div className="w-full relative" ref={searchRef}>
-      <div className="min-h-16 h-full bg-purple-100 flex items-center">
+      <div className="min-h-16 h-full flex items-center">
         <Input
           onClick={onInputClick}
           onChange={(e) => setSearchInput(e.target.value)}
@@ -47,7 +47,7 @@ export const SearchCommand = () => {
       </div>
       {isCommandBoxShown && (
         <div
-          className="bg-white w-full max-h-64 overflow-y-auto absolute w-[1024px] mt-[-12px] pb-4"
+          className="bg-white w-full max-h-64 overflow-y-auto absolute w-[1024px] mt-[-12px] pb-4 border-solid border border-t-0 rounded-b-md"
           style={{ zIndex: 2 }}
         >
           <div className="p-2">

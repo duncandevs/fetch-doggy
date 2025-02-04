@@ -33,7 +33,7 @@ export const SearchPagination = () => {
                 {pagesArray?.map((p)=>(
                     <PaginationItem key={p}>
                         <PaginationLink href={`?page=${p}`} className={
-                            cn(p === page && "bg-green-100")
+                            cn(p === page && "bg-blue-500 text-white")
                         }>{p}</PaginationLink>
                     </PaginationItem>
                 ))}

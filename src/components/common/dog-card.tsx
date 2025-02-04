@@ -1,4 +1,5 @@
 import { Dog } from "@/domains/search/types"
+import { MapPin } from "lucide-react"
 import Image from "next/image"
 import React from "react"
 
@@ -18,10 +19,17 @@ export const DogCard: React.FC<DogCardProps> = ({ dog }) => {
             className="w-fill h-[300px] rounded-md"
         />
         <div className="p-4">
-            <p className="text-lg font-semibold">{dog.name}</p>
-            <p className="text-lg font-semibold">{dog.age}</p>
-            <p className="text-sm">{dog.zip_code}</p>
-            <p>{dog.breed}</p>
+            <div className="flex items-center justify-between">
+                <p className="text-lg font-semibold">{dog.name}</p>
+                <p>{dog.breed}</p>
+            </div>
+            <div className="flex items-center justify-between">
+                <p className="font-semibold">Age: {dog.age}</p>
+                <div className="flex items-center">
+                    <MapPin height={18} className="stroke-blue-500"/>
+                    <p className="text-sm">{dog.zip_code}</p> 
+                </div>
+            </div>
         </div>
     </div>
 }

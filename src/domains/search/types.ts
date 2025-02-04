@@ -1,6 +1,6 @@
 
-type SortField = "breed" | "name" | "age";
-type SortType = "asc" | "desc";
+export type SortField = "breed" | "name" | "age";
+export type SortType = "asc" | "desc";
 export type Sort = `${SortField}:${SortType}`;
 export type FetchDogIdsPayload = {
     breeds?: string[];

@@ -10,6 +10,7 @@ import { DogFilters } from "@/components/common/dog-filters";
 import { DogCard } from "@/components/common/dog-card";
 import { SideMenu } from "@/components/common/sidemenu";
 import { SearchPagination } from "@/components/common/search-pagination";
+import { SortFilters } from "@/components/common/sort-filter";
 
 
 export default function SearchPage () {
@@ -22,8 +23,8 @@ export default function SearchPage () {
 
     return <div className="flex h-full">
         <div>
-            <div className="bg-gray-100 w-full p-8 space-y-8">
-                <div className="w-full h-full bg-green-200 flex items-center gap-8">
+            <div className="bg-gray-50 w-full p-8 space-y-8">
+                <div className="w-full h-full flex items-center gap-8">
                     <Button variant="outline">
                         <ListFilter />
                         <p>{filters?.breeds?.length}</p>
@@ -32,7 +33,10 @@ export default function SearchPage () {
                     <div className="w-full">
                         <SearchCommand />
                     </div>
-                    <div className="w-64 h-16 bg-gray-400"></div>
+                    <div className="w-64 h-16 flex items-center gap-2 w-fit">
+                        <p className="mr-4 font-semibold text-gray-500">Sort</p>
+                        <SortFilters />
+                    </div>
                 </div>
                 <DogFilters />
             </div>
