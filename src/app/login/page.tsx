@@ -5,11 +5,10 @@ import { redirect } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Dog, Mail, User } from "lucide-react";
+import { Cookie, Dog, Mail, User } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { createUserSession } from "@/domains/auth/utils";
 
-// const loginScreenImg = "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=3388&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 const loginScreenImg = "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=2688&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 
 export default function LoginPage() {
@@ -20,6 +19,15 @@ export default function LoginPage() {
         e.preventDefault();
         const credentials = { name, email };
         try {
+            const response = await fetch('https://frontend-take-home-service.fetch.com/auth/login', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(credentials),
+                credentials: "include"
+            });
+            console.log(response)
             const res = await axios.post('https://frontend-take-home-service.fetch.com/auth/login', credentials, {
                 withCredentials: true
             })
@@ -42,7 +50,7 @@ export default function LoginPage() {
                     <Dog height={64} width={48} />
                     <p className="text-2xl font-semibold">Doggy</p>
                 </div>
-                <div className="flex h-full w-full items-center justify-center">
+                <div className="flex flex-col h-full w-full items-center justify-center">
                     <div className="bg-yellow-100 w-[450px] h-[600px] rounded-lg p-12">
                         <div className="flex flex-col border-b border-gray-700 gap-4 p-1 pt-4 pb-4 mt-8">
                             <p className="text-2xl font-semibold">Sign in to Doggy</p>
@@ -59,6 +67,10 @@ export default function LoginPage() {
                             </div>
                             <Button type="submit" className="mt-8" size="lg">Login</Button>
                         </form>
+                    </div>
+                    <div className="flex items-center">
+                        <Cookie className="text-gray-400"/>
+                        <span className="mt-4 text-gray-400 max-w-64 text-center">For the best experience, please ensure cookies are enabled</span> 
                     </div>
                 </div>
             </div>

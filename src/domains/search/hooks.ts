@@ -18,7 +18,9 @@ export const useDogFilters = () => {
     const queryClient = useQueryClient();
     const { data: filters } = useQuery<FetchDogIdsPayload>({
       queryKey: DoggyCache.dogFilters,
-      queryFn: () => ({}), // Default empty filters,
+      queryFn: () => ({
+        sort: 'breed:asc'
+      }), // Default empty filters,
       staleTime: Infinity,
     });
     const updateFilter = (key: keyof FetchDogIdsPayload, value: any) => {

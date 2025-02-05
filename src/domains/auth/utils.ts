@@ -45,3 +45,12 @@ export function logout() {
     }
 }
   
+export const clearPersistedCache = () => {
+    Object.keys(localStorage).forEach((key) => {
+      if (key.includes("REACT_QUERY")) {
+        localStorage.removeItem(key);
+      }
+    });
+    console.log("Cleared all React Query persisted cache!");
+};
+  
