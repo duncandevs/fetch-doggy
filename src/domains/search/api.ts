@@ -37,9 +37,19 @@ const fetchDogs = async ({ ids }: {ids: string[]}) => {
     }
 };
 
+const fetchDogMatch = async ({ ids }: {ids: string[]}) => {
+    try {
+        const res = await doggyClient.post('/dogs/match', ids);
+        return res.data;
+    } catch (error) {
+        throw(error)
+    }
+};
+
 
 export const DoggyApi = {
     fetchDogBreeds,
     fetchDogIds,
-    fetchDogs
+    fetchDogs,
+    fetchDogMatch
 }

@@ -195,23 +195,58 @@ export const useSearchPagination = (initialPage: number = 0) => {
     };
 };
 
+// export const useFavorites = () => {
+//   const queryClient = useQueryClient();
+//   const { data: favorites } = useQuery({
+//     queryKey: DoggyCache.favorites,
+//     queryFn: ():Record<string, boolean> => ({}),
+//     initialData: {},
+//   });
+
+//   const updateFavorite = (id:string, value: boolean) => {
+//     queryClient.setQueryData(DoggyCache.favorites, (prev:Record<string, boolean> = {}) => ({
+//       ...prev,
+//       [id]: value,
+//     }));
+//   };
+
+//   return {
+//     favorites: favorites || {},
+//     addFavorite: (id: string) => updateFavorite(id, true),
+//     removeFavorite: (id: string) => updateFavorite(id, false),
+//     toggleFavorite: (id: string) => updateFavorite(id, !favorites?.[id]),
+//   };
+// };
+
 export const useFavorites = () => {
   const queryClient = useQueryClient();
+
+  // Retrieve favorite dog IDs from React Query cache
   const { data: favorites } = useQuery({
     queryKey: DoggyCache.favorites,
-    queryFn: ():Record<string, boolean> => ({}),
+    queryFn: (): Record<string, boolean> => ({}),
     initialData: {},
   });
 
-  const updateFavorite = (id:string, value: boolean) => {
-    queryClient.setQueryData(DoggyCache.favorites, (prev:Record<string, boolean> = {}) => ({
+  // Update favorite state in cache
+  const updateFavorite = (id: string, value: boolean) => {
+    queryClient.setQueryData(DoggyCache.favorites, (prev: Record<string, boolean> = {}) => ({
       ...prev,
       [id]: value,
     }));
   };
 
+  // Get all favorited dog IDs
+  const favoriteDogIds = Object.keys(favorites || {}).filter((id) => favorites[id]);
+
+  // Retrieve favorite dogs from React Query cache instead of fetching again
+  const favoriteDogs = favoriteDogIds
+    .map((id) => queryClient.getQueryData(DoggyCache.getDog(id))) // Get cached dog data
+    .filter((dog) => dog !== undefined); // Filter out undefined results
+
   return {
     favorites: favorites || {},
+    favoriteDogs, // Returns cached dog data instead of refetching
     addFavorite: (id: string) => updateFavorite(id, true),
     removeFavorite: (id: string) => updateFavorite(id, false),
     toggleFavorite: (id: string) => updateFavorite(id, !favorites?.[id]),
