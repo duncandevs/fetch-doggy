@@ -18,12 +18,12 @@ export default function SearchPage () {
         page,
     } = useSearchPagination(0);
     const { filters } = useDogFilters();
-    console.log("filters: ", filters)
+
     const { dogs } = useDogSearch(page);
 
     return <div className="flex h-full">
         <div>
-            <div className="hidden md:flex bg-gray-50 w-full p-8 space-y-8">
+            <div className="hidden md:block bg-gray-50 w-full p-8 space-y-8">
                 <div className="w-full h-full flex items-center gap-8">
                     <Button variant="outline">
                         <ListFilter />
