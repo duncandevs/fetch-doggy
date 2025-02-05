@@ -19,7 +19,7 @@ export const useDogFilters = () => {
     const { data: filters } = useQuery<FetchDogIdsPayload>({
       queryKey: DoggyCache.dogFilters,
       queryFn: () => ({
-        sort: 'breed:asc'
+        sort: 'breed:asc' // Set default sort order
       }), // Default empty filters,
       staleTime: Infinity,
     });
