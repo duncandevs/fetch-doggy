@@ -52,6 +52,5 @@ export const clearPersistedCache = () => {
         localStorage.removeItem(key);
       }
     });
-    console.log("Cleared all React Query persisted cache!");
 };
   

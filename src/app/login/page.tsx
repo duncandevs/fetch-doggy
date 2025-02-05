@@ -27,7 +27,6 @@ export default function LoginPage() {
                 body: JSON.stringify(credentials),
                 credentials: "include"
             });
-            console.log(response)
             const res = await axios.post('https://frontend-take-home-service.fetch.com/auth/login', credentials, {
                 withCredentials: true
             })

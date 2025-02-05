@@ -65,10 +65,6 @@ export const useDogFilters = () => {
           zipCodes: prev.zipCodes ? prev.zipCodes.filter((b) => b !== zipCode) : []
         }));
     };
-
-    useEffect(()=>{
-      console.log(filters)
-    }, [filters])
     
     return {
       filters: filters || {},

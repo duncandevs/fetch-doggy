@@ -32,7 +32,7 @@ function ContentLayout ({ children }: ContentLayoutProps) {
             setIsFavoritesDialogOpen(false);
             if(match) setMatchedDog(match);   
         } catch (error) {
-            console.log('match results: ', error)
+            // handle error
         }
     };
 
