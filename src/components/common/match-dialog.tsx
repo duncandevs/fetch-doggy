@@ -11,9 +11,9 @@ export const MatchDialog: React.FC<MatchDialog> = ({dog, ...props }) => {
 
     return <CenteredDialog {...props}>
         <div> 
-            <h2 className="text-center">You've been Matched!</h2>
-            <div className="m-auto">
-                <DogCard dog={dog} />
+            <h2 className="text-center text-lg font-semibold">You've been Matched!</h2>
+            <div className="flex justify-center mt-8">
+                <DogCard dog={dog} hideFavoriteAction/>
             </div>
         </div>
     </CenteredDialog>

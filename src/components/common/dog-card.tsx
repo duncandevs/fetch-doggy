@@ -7,22 +7,23 @@ import { useFavorites } from "@/domains/search/hooks"
 import { cn } from "@/lib/utils"
 
 interface DogCardProps {
-    dog: Dog
+    dog: Dog;
+    hideFavoriteAction?: boolean;
 }
 
-export const DogCard: React.FC<DogCardProps> = ({ dog }) => {
+export const DogCard: React.FC<DogCardProps> = ({ dog, hideFavoriteAction=false }) => {
     const { favorites, toggleFavorite } = useFavorites();
     const handleFavorite = () => toggleFavorite(dog?.id);
     const isFavorited = favorites[dog?.id];
 
     return <div className="group w-[280px] h-[392px] w-60 rounded-md border-solid border"> 
-        <Button className={cn(
+        {!hideFavoriteAction && <Button className={cn(
                 "absolute m-2",
                 "hidden group-hover:flex",
                 isFavorited && "flex bg-pink-400"
             )} size="icon" onClick={handleFavorite}>
             <Heart  />
-        </Button>
+        </Button>}
         <Image 
             src={dog.img} 
             alt={dog.name} 
