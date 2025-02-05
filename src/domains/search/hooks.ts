@@ -193,29 +193,6 @@ export const useSearchPagination = (initialPage: number = 0) => {
     };
 };
 
-// export const useFavorites = () => {
-//   const queryClient = useQueryClient();
-//   const { data: favorites } = useQuery({
-//     queryKey: DoggyCache.favorites,
-//     queryFn: ():Record<string, boolean> => ({}),
-//     initialData: {},
-//   });
-
-//   const updateFavorite = (id:string, value: boolean) => {
-//     queryClient.setQueryData(DoggyCache.favorites, (prev:Record<string, boolean> = {}) => ({
-//       ...prev,
-//       [id]: value,
-//     }));
-//   };
-
-//   return {
-//     favorites: favorites || {},
-//     addFavorite: (id: string) => updateFavorite(id, true),
-//     removeFavorite: (id: string) => updateFavorite(id, false),
-//     toggleFavorite: (id: string) => updateFavorite(id, !favorites?.[id]),
-//   };
-// };
-
 export const useFavorites = () => {
   const queryClient = useQueryClient();
 
