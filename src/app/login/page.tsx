@@ -8,7 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Dog, Mail, User } from "lucide-react";
 import { Label } from "@/components/ui/label";
 
-const loginScreenImg = "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=3388&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+// const loginScreenImg = "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=3388&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+const loginScreenImg = "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=2688&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 
 export default function LoginPage() {
     const [name, setName] = useState("");
@@ -43,7 +44,7 @@ export default function LoginPage() {
                     <div className="bg-yellow-100 w-[450px] h-[600px] rounded-lg p-12">
                         <div className="flex flex-col border-b border-gray-700 gap-4 p-1 pt-4 pb-4 mt-8">
                             <p className="text-2xl font-semibold">Sign in to Doggy</p>
-                            <p className="text-gray-700">enter your email and name</p>
+                            <p className="text-gray-700">You're best friend is awaiting you</p>
                         </div>
                         <form onSubmit={handleSubmit} className="flex flex-col mt-8 gap-8">
                             <div className="space-y-1">

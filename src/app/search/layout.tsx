@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { DoggyApi } from "@/domains/search/api";
 import { CenteredDialog } from "@/components/common/center-dialog";
 import { Dog } from "@/domains/search/types";
+import { HeaderDropdown } from "@/components/common/header-dropdown";
 
 interface LayoutProps {
     children: any
@@ -45,12 +46,14 @@ export default function Layout ({ children }: LayoutProps) {
                 <DogIcon height={64} width={48} />
                 <p className="text-2xl font-semibold">Doggy</p>
             </div>
-            <Avatar size={40} className="ml-auto mr-4" name="Duncan Maina"/>
+            <HeaderDropdown>
+                <Avatar size={40} className="ml-auto mr-4 rounded-full cursor-pointer hover:shadow-md hover:shadow-gray-300" name="Duncan Maina" variant="beam" />
+            </HeaderDropdown>
             <div onClick={()=>setIsFavoritesDialogOpen(true)}>
                 {!!faveLength && <div className="ml-8 mt-[-4] absolute w-4 h-4 rounded-full bg-red-500 flex items-center justify-center">
                     <p className="text-[8px] text-white">{faveLength}</p>
                 </div>}
-                <Button size="icon" className="rounded-full h-[40px] w-[40px]">
+                <Button size="icon" className="rounded-full h-[40px] w-[40px] hover:shadow-md hover:shadow-gray-400">
                     <Heart />
                 </Button>
             </div>

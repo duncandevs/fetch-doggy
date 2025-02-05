@@ -17,7 +17,7 @@ type FavoritesSideDialogProps = SideDialogProps & {
         <div className="overflow-y-scroll h-screen pb-64">
           <ul className="flex flex-col gap-4 mt-8">
             {favoriteDogs?.map((dog: Dog) => (
-                <li key={dog?.id} className="flex hover:bg-gray-100 rounded-md justify-between">
+                <li key={dog?.id} className="flex hover:bg-gray-100 p-4 rounded-md justify-between">
                   <div className="flex items-center  space-x-4">
                     <Image src={dog.img} width={64} height={64} className="rounded-md w-[64px] h-[64px]" alt={dog.name}/>
                     <div>
