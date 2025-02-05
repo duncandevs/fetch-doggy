@@ -2,26 +2,28 @@
 import { FavoritesSideDialog } from "@/components/common/favorites-dialog";
 import { MatchDialog } from "@/components/common/match-dialog";
 import { Button } from "@/components/ui/button";
-import { useFavorites, useGetDogById } from "@/domains/search/hooks";
+import { useFavorites } from "@/domains/search/hooks";
 import Avatar from "boring-avatars";
 import { Dog as DogIcon, Heart } from "lucide-react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DoggyApi } from "@/domains/search/api";
-import { CenteredDialog } from "@/components/common/center-dialog";
 import { Dog } from "@/domains/search/types";
 import { HeaderDropdown } from "@/components/common/header-dropdown";
+import { getUserSession } from "@/domains/auth/utils";
+import { useRequireAuth } from "@/domains/auth/hooks";
 
-interface LayoutProps {
+interface ContentLayoutProps {
     children: any
 };
 
-export default function Layout ({ children }: LayoutProps) {
+function ContentLayout ({ children }: ContentLayoutProps) {
     const { favorites, favoriteDogs } = useFavorites();
     const faveIds = favoriteDogs?.map((d)=>d?.id);
     const faveLength = Object.values(favorites)?.filter((i)=>!!i).length;
     const [isFavoritesDialogOpen, setIsFavoritesDialogOpen] = useState(false);
     const [isMatchDialogOpen, setIsMatchDialogOpen] = useState(false);
     const [matchedDog, setMatchedDog] = useState<Dog>();
+    const session = getUserSession();
     
     const handleMatch = async () => {
         try {
@@ -36,7 +38,7 @@ export default function Layout ({ children }: LayoutProps) {
 
     useEffect(()=>{
         if(matchedDog) setIsMatchDialogOpen(true)
-    }, [matchedDog])
+    }, [matchedDog]);
 
     return <div className="flex flex-col">
         <FavoritesSideDialog isOpen={isFavoritesDialogOpen} setIsOpen={setIsFavoritesDialogOpen} title="Favorites" handleMatch={handleMatch} />
@@ -46,7 +48,7 @@ export default function Layout ({ children }: LayoutProps) {
                 <DogIcon height={64} width={48} />
                 <p className="text-2xl font-semibold">Doggy</p>
             </div>
-            <HeaderDropdown>
+            <HeaderDropdown fullName={session?.name || ""}>
                 <Avatar size={40} className="ml-auto mr-4 rounded-full cursor-pointer hover:shadow-md hover:shadow-gray-300" name="Duncan Maina" variant="beam" />
             </HeaderDropdown>
             <div onClick={()=>setIsFavoritesDialogOpen(true)}>
@@ -62,4 +64,16 @@ export default function Layout ({ children }: LayoutProps) {
             {children}
         </div>
     </div>
-}
+};
+
+interface LayoutProps {
+    children: any
+};
+
+export default function Layout ({ children }: LayoutProps) {
+    const { isChecking, isAuthenticated } = useRequireAuth();
+
+    if (isChecking) return null; // Prevent rendering while session check is in progress
+
+    return isAuthenticated ? <ContentLayout>{children}</ContentLayout> : null;
+};

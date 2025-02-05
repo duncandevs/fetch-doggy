@@ -15,14 +15,15 @@ import React from "react";
 
 interface HeaderDropdown {
     children: any
+    fullName: string
 }
-export const HeaderDropdown: React.FC<HeaderDropdown> = ({ children }) => (
+export const HeaderDropdown: React.FC<HeaderDropdown> = ({ children, fullName }) => (
     <DropdownMenu>
         <DropdownMenuTrigger asChild>
             {children}
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56 bg-white m-4">
-            <DropdownMenuLabel>Project</DropdownMenuLabel>
+            <DropdownMenuLabel>{fullName}</DropdownMenuLabel>
             <DropdownMenuGroup>
                 <Link href="https://github.com/duncandevs/story-writer-ai" target="_blank" passHref>
                     <DropdownMenuItem>
@@ -31,7 +32,7 @@ export const HeaderDropdown: React.FC<HeaderDropdown> = ({ children }) => (
                     </DropdownMenuItem>
                 </Link>
                 <DropdownMenuSeparator />
-                <Link href="https://github.com/duncandevs/story-writer-ai" target="_blank" passHref>
+                <Link href="/logout" target="_blank" passHref>
                     <DropdownMenuItem>
                         <LogOut />
                         <span>Log out</span>
