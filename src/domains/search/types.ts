@@ -2,7 +2,7 @@
 export type SortField = "breed" | "name" | "age";
 export type SortType = "asc" | "desc";
 export type Sort = `${SortField}:${SortType}`;
-export type FetchDogIdsPayload = {
+export interface FetchDogIdsPayload {
     breeds?: string[];
     zipCodes?: string[];
     ageMin?: number;
