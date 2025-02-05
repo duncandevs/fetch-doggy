@@ -46,6 +46,7 @@ export function logout() {
 }
   
 export const clearPersistedCache = () => {
+    if (typeof localStorage === "undefined") return null;
     Object.keys(localStorage).forEach((key) => {
       if (key.includes("REACT_QUERY")) {
         localStorage.removeItem(key);
