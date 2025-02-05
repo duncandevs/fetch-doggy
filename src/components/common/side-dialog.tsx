@@ -1,11 +1,7 @@
 "use client"
 import { FC } from "react";
 import { Dialog, DialogTitle, DialogPanel } from "@headlessui/react";
-import { useFavorites } from "@/domains/search/hooks";
-import { Dog } from "@/domains/search/types";
-import Image from "next/image";
-import { Button } from "../ui/button";
-import { Heart, XIcon } from "lucide-react";
+import { XIcon } from "lucide-react";
 
 interface SideDialogProps {
   isOpen: boolean;

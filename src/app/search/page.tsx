@@ -23,7 +23,7 @@ export default function SearchPage () {
 
     return <div className="flex h-full">
         <div>
-            <div className="bg-gray-50 w-full p-8 space-y-8">
+            <div className="hidden md:flex bg-gray-50 w-full p-8 space-y-8">
                 <div className="w-full h-full flex items-center gap-8">
                     <Button variant="outline">
                         <ListFilter />
@@ -42,10 +42,10 @@ export default function SearchPage () {
             </div>
             <hr />
             <div className="flex w-screen">
-                <div className="min-h-full w-[300px] p-8">
+                <div className="min-h-full w-[300px] p-8 hidden md:flex">
                     <SideMenu />
                 </div>
-                <div className="w-[calc(100vw-300px)] m-auto">
+                <div className="lg:w-[calc(100vw-300px)] m-auto">
                     <div className="grid gap-4 p-4 auto-grid overflow-y-auto">
                         {dogs?.map((dog: Dog)=><DogCard dog={dog} key={dog.id}/>)}
                     </div>
