@@ -4,7 +4,7 @@ import React from "react";
 export interface CenterDialogProps {
     isOpen: boolean;
     setIsOpen: (isOpen:boolean) => void;
-    title: string;
+    title?: string;
     children?: any
 }
 

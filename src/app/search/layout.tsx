@@ -39,7 +39,7 @@ export default function Layout ({ children }: LayoutProps) {
 
     return <div className="flex flex-col">
         <FavoritesSideDialog isOpen={isFavoritesDialogOpen} setIsOpen={setIsFavoritesDialogOpen} title="Favorites" handleMatch={handleMatch} />
-        <MatchDialog isOpen={isMatchDialogOpen} setIsOpen={setIsMatchDialogOpen} title="Match" dog={matchedDog}/>
+        <MatchDialog isOpen={isMatchDialogOpen} setIsOpen={setIsMatchDialogOpen} dog={matchedDog}/>
         <div className="flex fixed items-center w-full h-16 bg-yellow-100 pr-12" style={{zIndex: 10}}>
             <div className="ml-4 flex items-center gap-4">
                 <DogIcon height={64} width={48} />
