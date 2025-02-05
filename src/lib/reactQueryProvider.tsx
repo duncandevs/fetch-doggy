@@ -13,14 +13,16 @@ const queryClient =  new QueryClient({
 });
 
 // Persist to localStorage
-const persister = createSyncStoragePersister({
-  storage: window.localStorage, // ✅ Stores cache in localStorage
-});
+const persister = typeof window !== "undefined" 
+  ? createSyncStoragePersister({ storage: window.localStorage }) 
+  : undefined;
 
-persistQueryClient({
-  queryClient,
-  persister,
-});
+if (persister) {
+  persistQueryClient({
+    queryClient,
+    persister,
+  });
+};
 
 interface Providers {
   children: any

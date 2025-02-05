@@ -12,6 +12,8 @@ export function createUserSession(credential: Credentials) {
 }
 
 export function getUserSession(): Credentials | null {
+    if (typeof document === "undefined") return null;
+
     const cookieStr = document.cookie.split('; ').find(row => row.startsWith('doggy_session='));
     if (!cookieStr) return null;
     
@@ -31,10 +33,12 @@ export function getUserSession(): Credentials | null {
 };
 
 export function deleteUserSession() {
+    if (typeof document === "undefined") return null;
     document.cookie = `doggy_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 };
 
 export function logout() {
+    if (typeof document === "undefined") return null;
     document.cookie = `doggy_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
     if (typeof window !== 'undefined') {
         window.location.href = '/login';
