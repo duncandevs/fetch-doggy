@@ -69,8 +69,8 @@ export default function LoginPage() {
                         </form>
                     </div>
                     <div className="flex items-center">
-                        <Cookie className="text-gray-400"/>
-                        <span className="mt-4 text-gray-400 max-w-64 text-center">For the best experience, please ensure cookies are enabled</span> 
+                        <Cookie className="text-blue-500"/>
+                        <span className="mt-4 text-blue-500 max-w-64 text-center">For the best experience, please ensure cookies are enabled</span> 
                     </div>
                 </div>
             </div>
