@@ -18,7 +18,6 @@ export default function SearchPage () {
         page,
     } = useSearchPagination(0);
     const { filters } = useDogFilters();
-
     const { dogs } = useDogSearch(page);
 
     return <div className="flex h-full">
